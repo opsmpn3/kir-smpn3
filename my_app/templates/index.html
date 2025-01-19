@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Main Menu</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <h1>Main Menu</h1>
+    <div class="menu-container">
+        <ul class="menu-list">
+            <li><a href="#" onclick="openModal('modalKIR')"><div class="menu-item"><i class="fas fa-car"></i><span>KIR</span></div></a></li>
+            <li><a href="#" onclick="openModal('modalMaintenance')"><div class="menu-item"><i class="fas fa-wrench"></i><span>Perawatan Aset</span></div></a></li>
+            <li><a href="#" onclick="openModal('modalInformasi')"><div class="menu-item"><i class="fas fa-info-circle"></i><span>Informasi</span></div></a></li>
+        </ul>
+    </div>
+    <footer>
+        <p>&copy; 2025 Your Company. All rights reserved.</p>
+    </footer>
+
+    <!-- Modal KIR -->
+    <div id="modalKIR" class="modal">
+        <div class="modal-content">
+            <h1>Daftar Ruangan KIR</h1>
+            <ul class="room-list">
+                {% for room in rooms %}
+                    <li><a href="{{ url_for('download_file', filename=room.replace(' ', '_') + '.pdf') }}" target="_blank">{{ room }}</a></li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+
+    <!-- Modal Maintenance -->
+    <div id="modalMaintenance" class="modal">
+        <div class="modal-content">
+            <h1>Perawatan Aset</h1>
+            <form method="POST" action="{{ url_for('maintenance') }}" enctype="multipart/form-data">
+                {{ form.hidden_tag() }}
+                <p>
+                    {{ form.asset_name.label }}<br>
+                    {{ form.asset_name(size=32) }}
+                </p>
+                <p>
+                    {{ form.maintenance_date.label }}<br>
+                    {{ form.maintenance_date() }}
+                </p>
+                <p>
+                    {{ form.description.label }}<br>
+                    {{ form.description(rows=4, cols=40) }}
+                </p>
+                <p>
+                    {{ form.photo.label }}<br>
+                    {{ form.photo() }}
+                </p>
+                <p>{{ form.submit() }}</p>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal Informasi -->
+    <div id="modalInformasi" class="modal">
+        <div class="modal-content">
+            <h1>Informasi</h1>
+            <div class="info-section">
+                <h2>KIR</h2>
+                <p>{{ kir_info }}</p>
+            </div>
+            <div class="info-section">
+                <h2>Perawatan Aset</h2>
+                <p>{{ perawatan_info }}</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Open modal
+        function openModal(modalId) {
+            document.getElementById(modalId).style.display = "block";
+        }
+
+        // Close modal when clicking outside of the modal-content
+        window.onclick = function(event) {
+            if (event.target.classList.contains('modal')) {
+                event.target.style.display = "none";
+            }
+        }
+    </script>
+</body>
+</html>

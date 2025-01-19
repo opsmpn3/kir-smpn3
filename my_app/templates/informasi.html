@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Informasi</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>Informasi</h1>
+    <div class="info-section">
+        <h2>KIR</h2>
+        <p>{{ kir_info }}</p>
+    </div>
+    <div class="info-section">
+        <h2>Perawatan Aset</h2>
+        <p>{{ perawatan_info }}</p>
+    </div>
+</body>
+</html>

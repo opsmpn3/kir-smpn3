@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assets List</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>Assets List</h1>
+    <ul>
+        {% for asset in assets %}
+            <li>
+                <strong>{{ asset.name }}</strong>: {{ asset.description }}
+                {% if asset.image %}
+                    <br><img src="{{ url_for('static', filename='uploads/' + asset.image) }}" alt="{{ asset.name }}" width="100">
+                {% endif %}
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
